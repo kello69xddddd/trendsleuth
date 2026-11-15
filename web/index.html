@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TrendSleuth tells you if a change in NASA Earth data is a real trend, a natural cycle, or just noise. NASA Space Apps Challenge 2026.">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#0B1324">
+<title>TrendSleuth · Discover trends around the world</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232B3850'/%3E%3Ccircle cx='14' cy='14' r='8' fill='none' stroke='%23fff' stroke-width='2.6'/%3E%3Cpath d='M9.5 16l3-3.500 2.500 2.200 3.500-4.200' fill='none' stroke='%23FFB27D' stroke-width='2.400' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M20 20l6.500 6.500' stroke='%23fff' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="script" href="vendor/globe.gl.min.js">
+</head>
+<body data-tone="none">
+<a class="skip" href="#panel">Skip to the result</a>
+<div id="sky" aria-hidden="true"><canvas id="sky1"></canvas><canvas id="sky2"></canvas><canvas id="sky3"></canvas></div>
+
+<header class="bar">
+  <div class="bar-left">
+    <div class="brand" aria-label="TrendSleuth">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M8.5 16.5l3.5-4 3 2.6 4-5" fill="none" stroke="#FFB27D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 21.5L29 29" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
+      <span>Trend<b>Sleuth</b></span>
+    </div>
+    <button id="glossBtn" class="btn ghost" aria-haspopup="dialog"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 3.500h9a3 3 0 0 1 3 3v10H7a3 3 0 0 1-3-3z M4 13.500a3 3 0 0 1 3-3h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>Glossary</button>
+  </div>
+  <nav class="seg layers" id="layers" role="tablist" aria-label="Level of analysis, from simple to expert">
+    <button role="tab" data-l="1" aria-selected="true"><i class="lvl l1" aria-hidden="true"><s></s><s></s><s></s></i><span><b>Beginner</b><small>The answer</small></span></button>
+    <button role="tab" data-l="2" aria-selected="false"><i class="lvl l2" aria-hidden="true"><s></s><s></s><s></s></i><span><b>Intermediate</b><small>The charts</small></span></button>
+    <button role="tab" data-l="3" aria-selected="false"><i class="lvl l3" aria-hidden="true"><s></s><s></s><s></s></i><span><b>Pro</b><small>The tests</small></span></button>
+  </nav>
+  <div class="bar-right">
+    <button id="topBtn" class="btn ghost" aria-pressed="false"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3 14l4.500-5 3.500 3 6-7M13 5h4v4" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg>Top trends</button>
+    <button id="demoBtn" class="btn ghost"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M6 4l11 6-11 6z" fill="currentColor"/></svg>Demo</button>
+    <button id="helpBtn" class="btn ghost">How it works</button>
+  </div>
+</header>
+
+<main>
+  <section id="stage" aria-label="Choose a variable and a place">
+    <div class="ask card-dark">
+      <h2 id="askLabel" class="stepl"><i>1</i>Choose a variable</h2>
+      <div id="vars" class="pills" role="radiogroup" aria-labelledby="askLabel"></div>
+      <p id="vardef"></p>
+    </div>
+
+    <form id="where" class="where card-dark" autocomplete="off">
+      <h2 id="whereLabel" class="stepl"><i>2</i>Choose a place</h2>
+      <div class="search">
+        <input id="q" type="search" placeholder="Search a place, type lat, lon, or tap the globe" role="combobox" aria-expanded="false" aria-controls="qList" aria-autocomplete="list" aria-labelledby="whereLabel">
+        <ul id="qList" role="listbox" aria-label="Places" hidden></ul>
+      </div>
+    </form>
+
+    <div id="globeWrap">
+      <div id="globe" role="application" aria-label="Interactive globe with a satellite image of the Earth. Green shows a confirmed rise of the chosen variable, red a confirmed fall. Stronger colour means faster change. Click a place to investigate it."></div>
+      <div class="zoom" role="group" aria-label="Zoom">
+        <button type="button" id="zoomIn" aria-label="Zoom in">+</button>
+        <button type="button" id="zoomOut" aria-label="Zoom out">−</button>
+      </div>
+      <div id="legend" class="legend" role="group" aria-label="Map legend"></div>
+    </div>
+  </section>
+
+  <section id="panel" tabindex="-1" aria-live="polite">
+    <div id="busy" class="view center"><div class="spin" aria-hidden="true"></div><p id="busyText">Loading NASA data…</p></div>
+    <div id="err" class="view center" hidden></div>
+
+    <!-- top trends -->
+    <div id="TT" class="view" hidden>
+      <div class="viewhead"><div><p class="kicker">Found automatically in NASA data · change per decade</p><h1 class="h1s">Top trends</h1></div><button class="x" id="ttClose" aria-label="Close top trends">×</button></div>
+      <div id="ttList" class="ttlist"></div>
+      <p class="note" id="ttNote"></p>
+    </div>
+
+    <!-- level 1 · Beginner -->
+    <div id="L1" class="view" hidden>
+      <p class="kicker"><span class="stepl"><i>3</i>Read the result</span><span id="kicker"></span></p>
+      <h1 id="headline"></h1>
+      <div class="meter" id="meter" role="img"></div>
+      <div class="bigrow">
+        <div id="arrow" class="arrow" aria-hidden="true"></div>
+        <div><div id="bignum" class="bignum"></div><div id="bigsub" class="bigsub"></div></div>
+      </div>
+      <p id="plain" class="lead"></p>
+      <div class="lower">
+        <button id="spark" class="spark" data-go="2:time" aria-label="Open the chart of this record"></button>
+        <div id="outlook" class="outlook" role="note" hidden></div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" data-go="2:time">Why? See the charts<svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.500 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <!-- event mark. To show the official NASA Space Apps Challenge logo: save it as web/img/spaceapps.png (from
+             spaceappschallenge.org/brand, not changed) and remove the two comment marks around the img tag below.
+             The NASA insignia ("meatball") is not used: NASA does not allow it without written permission. -->
+        <span class="eventmark"><!-- <img src="img/spaceapps.png" alt="NASA Space Apps Challenge logo"> --><span><b>NASA Space Apps Challenge 2026</b><small>Built with NASA open data</small></span></span>
+      </div>
+    </div>
+
+    <!-- level 2 · Intermediate -->
+    <div id="L2" class="view" hidden>
+      <div class="viewhead">
+        <div class="seg light" id="evTabs" role="tablist" aria-label="Charts">
+          <button role="tab" data-e="time">Over time</button>
+          <button role="tab" data-e="tvn">Then vs now</button>
+          <button role="tab" data-e="rhythm">Rhythms</button>
+          <button role="tab" data-e="month">By month</button>
+        </div>
+      </div>
+      <p id="evNote" class="note"></p>
+      <div id="evExtra"></div>
+      <div id="chart" class="chart" role="img" aria-label="Chart"></div>
+    </div>
+
+    <!-- level 3 · Pro -->
+    <div id="L3" class="view" hidden>
+      <div class="viewhead">
+        <div class="seg light" id="detTabs" role="tablist" aria-label="Tests and data">
+          <button role="tab" data-d="checks">Checks</button>
+          <button role="tab" data-d="numbers">Numbers</button>
+          <button role="tab" data-d="data">Data and sources</button>
+          <button role="tab" data-d="else">Other variables</button>
+        </div>
+      </div>
+      <div id="detBody" class="detbody"></div>
+    </div>
+  </section>
+</main>
+
+<div id="demoBar" class="demobar" role="region" aria-label="Guided demo" hidden>
+  <div class="demo-text" aria-live="polite"><small id="demoCount"></small><b id="demoStep"></b><span id="demoText"></span></div>
+  <div class="demo-ctl">
+    <button class="btn round" id="demoPrev" aria-label="Previous step"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M12.500 4l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="btn" id="demoPause" aria-pressed="false">Pause</button>
+    <button class="btn round" id="demoNext" aria-label="Next step"><svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M7.500 4l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="btn round" id="demoStop" aria-label="Close the demo">×</button>
+  </div>
+  <div class="demo-prog" id="demoDots"></div>
+</div>
+
+<!-- welcome pop-up -->
+<dialog id="hello" aria-labelledby="helloTitle">
+  <button class="x corner" id="helloClose" aria-label="Close">×</button>
+  <div class="hello-head">
+    <svg viewBox="0 0 32 32" width="52" height="52" aria-hidden="true"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="2.6"/><path d="M8.5 16.5l3.5-4 3 2.6 4-5" fill="none" stroke="#E2672B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M21.5 21.5L29 29" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
+    <div><h3 id="helloTitle">Trend<b>Sleuth</b></h3><p class="tagline">Discover trends around the world</p></div>
+  </div>
+  <p class="hello-lead">Is it a <b>real trend</b>, a <b>natural cycle</b>, or just <b>noise</b>? Ask NASA data in three steps.</p>
+  <ul class="why">
+    <li><b>The problem</b><span>A natural cycle or one dataset can look like a trend. In our global rain scan, only 1 in 4 "trends" was confirmed by a second NASA dataset.</span></li>
+    <li><b>Our solution</b><span>Four tests and a second witness, for any place on Earth, in seconds. One clear answer.</span></li>
+    <li><b>The impact</b><span>You see if the trend is a risk and what to do. Fewer false alarms, faster action on real change.</span></li>
+  </ul>
+  <ol class="steps">
+    <li><i>1</i><div><b>Choose a variable</b><span>Rain, temperature, wind…</span></div></li>
+    <li><i>2</i><div><b>Choose a place</b><span>Search it or tap the globe.</span></div></li>
+    <li><i>3</i><div><b>Read the result</b><span>Trend or no trend, and how strong.</span></div></li>
+  </ol>
+  <ul class="levels">
+    <li><i class="lvl l1" aria-hidden="true"><s></s><s></s><s></s></i><div><b>Beginner</b><span>The answer in plain words.</span></div></li>
+    <li><i class="lvl l2" aria-hidden="true"><s></s><s></s><s></s></i><div><b>Intermediate</b><span>Charts that show why.</span></div></li>
+    <li><i class="lvl l3" aria-hidden="true"><s></s><s></s><s></s></i><div><b>Pro</b><span>Every test, number and source.</span></div></li>
+  </ul>
+  <div class="actions"><button class="btn primary" id="helloGo" autofocus>Start exploring</button><button class="btn" id="helloDemo">Watch the demo</button></div>
+</dialog>
+
+<!-- how it works -->
+<dialog id="help" aria-labelledby="helpTitle">
+  <div class="sheet-head"><h3 id="helpTitle" tabindex="-1" autofocus>How TrendSleuth works</h3><button class="x" id="helpClose" aria-label="Close">×</button></div>
+  <ol class="pipe">
+    <li class="p1"><svg viewBox="0 0 120 56" aria-hidden="true"><path class="ghost" d="M4 28c9-26 19-26 28 0s19 26 28 0 19-26 28 0 19 26 28 0"/><path class="draw" d="M4 30l14-4 14 6 14-5 14 4 14-6 14 3 14-5 14 2"/></svg><b><i>1</i>Remove the seasons</b><span>Each month is compared with its own normal value.</span></li>
+    <li class="p2"><svg viewBox="0 0 120 56" aria-hidden="true"><path class="ghost" d="M4 34c12-22 22-22 34-4s22 16 34-6 26-14 44-4"/><path class="draw" d="M4 38l16-2 16-3 16-1 16-4 16-2 16-3 16-3"/></svg><b><i>2</i>Remove natural rhythms</b><span>We test 11 phenomena, like El Niño, and take out the one that matters.</span></li>
+    <li class="p3"><svg viewBox="0 0 120 56" aria-hidden="true"><g class="dots"><circle cx="10" cy="40" r="3"/><circle cx="26" cy="32" r="3"/><circle cx="42" cy="37" r="3"/><circle cx="58" cy="26" r="3"/><circle cx="74" cy="29" r="3"/><circle cx="90" cy="18" r="3"/><circle cx="108" cy="16" r="3"/></g><path class="draw" d="M6 42L114 13"/></svg><b><i>3</i>Test the trend</b><span>Four statistical tests must agree before we call it a trend.</span></li>
+    <li class="p4"><svg viewBox="0 0 120 56" aria-hidden="true"><path class="ghost solid" d="M6 40L92 16"/><path class="draw" d="M6 46L92 24"/><path class="tick" d="M98 30l6 7 12-16"/></svg><b><i>4</i>Ask a second witness</b><span>For rain, a second NASA dataset must agree. If not, it is a false lead.</span></li>
+  </ol>
+  <div id="gstats" class="facts"></div>
+  <div class="maphelp"><b>Reading the globe</b><span class="grad" aria-hidden="true"><i class="gd"></i><i class="gu"></i></span><span><b class="d">Red</b>: confirmed fall. <b class="u">Green</b>: confirmed rise. Stronger colour means faster change. No colour means no confirmed trend: it may be noise or a natural cycle.</span></div>
+  <p class="fine"><b>Warning.</b> A confirmed trend is continued in a straight line to 2050 and compared with the normal ups and downs of the place. It is a sign to investigate, not a climate-model forecast. Advice: <a href="https://www.ipcc.ch/report/ar6/wg2/" target="_blank" rel="noopener">IPCC AR6</a> adaptation options.</p>
+  <p class="fine"><b>Data.</b>
+    <a href="https://power.larc.nasa.gov/" target="_blank" rel="noopener">NASA POWER</a> ·
+    <a href="https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/" target="_blank" rel="noopener">NASA MERRA-2</a> ·
+    <a href="https://gpm.nasa.gov/data/imerg" target="_blank" rel="noopener">NASA GPM IMERG</a> ·
+    <a href="https://visibleearth.nasa.gov/collection/1484/blue-marble" target="_blank" rel="noopener">NASA Blue Marble</a> ·
+    <a href="https://psl.noaa.gov/data/climateindices/list/" target="_blank" rel="noopener">NOAA PSL climate indices</a> ·
+    <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener">Natural Earth</a> borders.
+    Built with NASA open data. NASA does not endorse this project.</p>
+  <p class="fine"><b>Team.</b> Narek Vásconez, Alejandro Benítez, Jorge Chapi, Andrés Albán, Alexander Escobar · NASA Space Apps Challenge 2026 · Sangolquí, Ecuador. <button class="link" id="helloAgain">Show the welcome guide</button></p>
+</dialog>
+
+<!-- glossary -->
+<dialog id="gloss" aria-labelledby="glossTitle">
+  <div class="sheet-head"><h3 id="glossTitle">Glossary</h3><button class="x" id="glossClose" aria-label="Close">×</button></div>
+  <div class="gloss-tools">
+    <input id="glossQ" type="search" placeholder="Search a word, for example p-value" aria-label="Search the glossary">
+    <div class="seg light" id="glossCat" role="radiogroup" aria-label="Kind of word">
+      <button role="radio" data-c="all" aria-checked="true">All</button>
+      <button role="radio" data-c="basics" aria-checked="false">Basics</button>
+      <button role="radio" data-c="tests" aria-checked="false">Tests</button>
+      <button role="radio" data-c="units" aria-checked="false">Units</button>
+    </div>
+  </div>
+  <dl id="glossList" class="glossary" tabindex="0"></dl>
+</dialog>
+
+<script src="js/store.js"></script>
+</body>
+</html>

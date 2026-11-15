@@ -1,0 +1,20 @@
+data/raw/
+data/tmp/
+__pycache__/
+.pytest_cache/
+out/scan/
+out/ui_*.png
+*.tspk
+data/proc/*.npz
+out/ui/
+node_modules/
+web_v1_backup/
+web_v2_backup/
+_to_delete/
+
+# not part of the submission
+web_v3_backup/
+web_v4_backup/
+TrendSleuth_project.zip
+TrendSleuth_demo_7_slides.pdf
+docs/slides/
