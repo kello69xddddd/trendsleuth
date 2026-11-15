@@ -12,7 +12,7 @@ Sigue las 7 diapositivas de la guía global de Project Demo: Portada, Problema, 
 | 0:30–1:05 | 2 Problema | Voz 1 (Narek) | "Solo 1 de 4 tendencias se confirma" |
 | 1:05–1:40 | 3 Solución | Voz 2 | "Entrada, proceso, salida: lo entiendo" |
 | 1:40–2:20 | 4 Datos NASA | Voz 2 | "Cada dato NASA tiene un uso real" |
-| 2:20–3:10 | 5 Prototipo (demo en vivo) | Voz 2 (maneja la app) | "Funciona hoy y son honestos con lo que falta" |
+| 2:20–3:10 | 5 Prototipo (demo en vivo) | Voz 2 (maneja la app) | "Funciona hoy, en vivo" |
 | 3:10–4:15 | 6 Resultados | Voz 1 (Narek) | "Lo probaron y encontró algo oculto" |
 | 4:15–4:55 | 7 Cierre | Voz 1 (Narek) | "Sé qué sigue y la frase se me queda" |
 
@@ -50,7 +50,7 @@ Hay tres trampas. El Niño puede esconder una tendencia, o inventarla. Un solo d
 
 "Uno: eliges una variable; el globo se pinta, verde donde la subida está confirmada. Dos: eliges un lugar: Quito. Tres: lees el veredicto. Sí, tendencia real: más 0,21 grados por década, todas las pruebas pasan. Y la alerta: desde 1995 el cambio ya supera la variación normal de la ciudad; si sigue así, medio grado más hasta 2050.
 
-[Volver al deck, señalar las dos tarjetas] Hoy ya funciona: la app web sin login, cualquier lugar del planeta con la API de NASA POWER, y los casos de demo incluso sin internet. Todavía no: la versión en español y la versión para celular."
+[Volver al deck, señalar "Ya funciona"] Y ya funciona hoy: está en línea, sin login, cualquier lugar del planeta con la API de NASA POWER, y los casos de demo incluso sin internet."
 
 ## 3:10–4:15 · Resultados · Voz 1
 
