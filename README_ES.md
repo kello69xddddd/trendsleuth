@@ -12,6 +12,7 @@ Equipo: Narek Vásconez, Alejandro Benítez, Jorge Chapi, Andrés Albán, Alexan
 | App en línea | https://kello69xddddd.github.io/trendsleuth/ |
 | Repositorio | https://github.com/kello69xddddd/trendsleuth |
 | Ficha del proyecto | [docs/PROJECT_PAGE_ES.md](docs/PROJECT_PAGE_ES.md) · [English](docs/PROJECT_PAGE.md) |
+| Pitch deck (7 diapositivas, PDF) | [Español](docs/pitch/TrendSleuth_pitch_ES.pdf) · [English](docs/pitch/TrendSleuth_pitch_EN.pdf) |
 | Datos y referencias | [docs/DATA_AND_REFERENCES.md](docs/DATA_AND_REFERENCES.md) |
 | Declaración de IA | [docs/AI_AND_PRIOR_WORK.md](docs/AI_AND_PRIOR_WORK.md) |
 | Licencia | [MIT](LICENSE) |

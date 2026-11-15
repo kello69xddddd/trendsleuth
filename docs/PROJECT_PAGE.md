@@ -19,6 +19,7 @@ The answer comes in three levels that go deeper: Beginner (the answer), Intermed
 
 **Live app:** https://kello69xddddd.github.io/trendsleuth/
 **Repository:** https://github.com/kello69xddddd/trendsleuth (MIT license)
+**Project demo (7-slide deck, English):** https://github.com/kello69xddddd/trendsleuth/blob/main/docs/pitch/TrendSleuth_pitch_EN.pdf
 **Audience:** high-school students in their last years and university students, and their teachers.
 
 **How it answers the challenge**

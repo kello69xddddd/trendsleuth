@@ -10,6 +10,7 @@ Team: Narek Vásconez, Alejandro Benítez, Jorge Chapi, Andrés Albán, Alexande
 | Live app | https://kello69xddddd.github.io/trendsleuth/ |
 | Repository | https://github.com/kello69xddddd/trendsleuth |
 | Project page | [docs/PROJECT_PAGE.md](docs/PROJECT_PAGE.md) · [Español](docs/PROJECT_PAGE_ES.md) |
+| Pitch deck (7 slides, PDF) | [English](docs/pitch/TrendSleuth_pitch_EN.pdf) · [Español](docs/pitch/TrendSleuth_pitch_ES.pdf) |
 | NASA data and references | [docs/DATA_AND_REFERENCES.md](docs/DATA_AND_REFERENCES.md) |
 | Use of AI | [docs/AI_AND_PRIOR_WORK.md](docs/AI_AND_PRIOR_WORK.md) |
 | License | [MIT](LICENSE) |

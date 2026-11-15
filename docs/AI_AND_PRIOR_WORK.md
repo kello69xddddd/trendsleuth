@@ -34,10 +34,10 @@ country of the chosen place; a demo that can be paused and teaches the main func
 | Sat 14 Nov, from 22:00 (during the event) | fifth version from the team's list `Correcciones_2.docx`: quieter globe colours (land and sea in different tones), no flicker in the trend layer, darker page with soft nebula shapes, outlook and warning card with one recommendation (`outlook()` in `web/js/app.js`), problem / solution / impact in the welcome window |
 | Sat 14 Nov, from 23:00 (during the event) | new team corrections: one base tone for the globe so colour shows only trend strength; outlook card shows the year the change left the normal range, the change since the start of the record and the 2050 projection |
 | Sat 14 – Sun 15 Nov, 23:00 → 01:00 (during the event) | pitch deck (7 slides) and pitch script written with Claude from the team's feedback; Spanish project page and README (`docs/PROJECT_PAGE_ES.md`, `README_ES.md`); repository published on GitHub and the app on GitHub Pages |
-| Sun 15 Nov | *to be completed by the team: anything else built, changed or checked before submission* |
+| Sun 15 Nov, 00:10 → 00:30 (during the event) | pitch deck rebuilt on the 7-slide structure of the local guide (Spanish and English, `docs/pitch/`), pitch script and judge questions |
 
 Everything dated before 09:00 on 14 November is prior work and is declared as such.
 
 ## What was checked by a person
 
-*To be completed by the team before submission (for example: re-ran the tests, opened the app on two laptops, checked the numbers of the three cases, tried five live places).*
+Reviewed and approved by **Narek Vásconez** (team) on 15 November 2026: the web app and its three demo cases, the pitch decks in Spanish and English, the pitch script, and the documents in this repository. The team also reviewed each version of the app during the event and wrote the three lists of corrections described above.

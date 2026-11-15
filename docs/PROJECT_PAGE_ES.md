@@ -10,6 +10,7 @@
 
 **App en línea:** https://kello69xddddd.github.io/trendsleuth/
 **Repositorio:** https://github.com/kello69xddddd/trendsleuth (licencia MIT)
+**Pitch deck (7 diapositivas):** https://github.com/kello69xddddd/trendsleuth/blob/main/docs/pitch/TrendSleuth_pitch_ES.pdf · [English](https://github.com/kello69xddddd/trendsleuth/blob/main/docs/pitch/TrendSleuth_pitch_EN.pdf)
 
 ## Resumen
 
