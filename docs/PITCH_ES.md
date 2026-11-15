@@ -4,6 +4,8 @@
 
 Estructura de 7 diapositivas de la guía de la sede. Hablan dos personas: **Voz 1 (Narek)** y **Voz 2** (maneja la demo).
 
+Equipo y roles: Narek Vásconez (líder), Alejandro Benítez (frontend), Jorge Chapi (backend), Andrés Albán (diseño visual), Alexander Escobar (impacto).
+
 | Tiempo | Diapositiva | Voz |
 |---|---|---|
 | 0:00–0:25 | 1 Portada e identificación | Voz 1 |
