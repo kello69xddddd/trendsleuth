@@ -50,7 +50,7 @@ Hay tres trampas. El Niño puede esconder una tendencia, o inventarla. Un solo d
 
 "Uno: eliges una variable; el globo se pinta, verde donde la subida está confirmada. Dos: eliges un lugar: Quito. Tres: lees el veredicto. Sí, tendencia real: más 0,21 grados por década, todas las pruebas pasan. Y la alerta: desde 1995 el cambio ya supera la variación normal de la ciudad; si sigue así, medio grado más hasta 2050.
 
-[Volver al deck, señalar "Ya funciona"] Y ya funciona hoy: está en línea, sin login, cualquier lugar del planeta con la API de NASA POWER, y los casos de demo incluso sin internet."
+[Volver al deck, señalar "Ya funciona"] Y ya funciona hoy: está en línea, sin login, con siete variables y cualquier lugar del planeta gracias a la API de NASA POWER."
 
 ## 3:10–4:15 · Resultados · Voz 1
 
