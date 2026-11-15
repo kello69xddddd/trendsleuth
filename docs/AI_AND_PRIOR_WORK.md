@@ -32,7 +32,9 @@ country of the chosen place; a demo that can be paused and teaches the main func
 | Sat 14 Nov, from 11:00 (during the event) | team review and corrections; nine more NOAA climate indices added; rhythm ranking, rhythm scan, decade comparison and event comparison (`web/js/insights.js`); full interface redesign (three layers, 3D globe, guided demo); documents rewritten |
 | Sat 14 Nov, from 13:00 (during the event) | third version from the second list of corrections: data converted to JSON and project reorganised (`web/js`, `web/css`, build scripts); trend scan of six more variables and global trend map; Top trends; place names from Natural Earth; light redesign; guided demo with pause; speed work; tests and documents updated |
 | Sat 14 Nov, from 22:00 (during the event) | fifth version from the team's list `Correcciones_2.docx`: quieter globe colours (land and sea in different tones), no flicker in the trend layer, darker page with soft nebula shapes, outlook and warning card with one recommendation (`outlook()` in `web/js/app.js`), problem / solution / impact in the welcome window |
-| Sat 14 – Sun 15 Nov | *to be completed by the team: what else was built, changed or checked during the event* |
+| Sat 14 Nov, from 23:00 (during the event) | new team corrections: one base tone for the globe so colour shows only trend strength; outlook card shows the year the change left the normal range, the change since the start of the record and the 2050 projection |
+| Sat 14 – Sun 15 Nov, 23:00 → 01:00 (during the event) | pitch deck (7 slides) and pitch script written with Claude from the team's feedback; Spanish project page and README (`docs/PROJECT_PAGE_ES.md`, `README_ES.md`); repository published on GitHub and the app on GitHub Pages |
+| Sun 15 Nov | *to be completed by the team: anything else built, changed or checked before submission* |
 
 Everything dated before 09:00 on 14 November is prior work and is declared as such.
 
